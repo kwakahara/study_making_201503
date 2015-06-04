@@ -1,0 +1,33 @@
+select 
+	date_format(CNT.D, '%Y-%m-%d') as target_date,
+	sum(CNT.J) as joined_count,
+	sum(CNT.L) as left_count,
+	(select
+	sum(CNT2.J - CNT2.L)
+	from ( select U.LEFT_DATE D,
+		0 as J,
+               	1 as L
+               	from users U
+               	where U.LEFT_DATE is not null 
+               	union all
+               	select 
+               		U.JOINED_DATE D,
+               		1 as J,
+               		0 as L from users U 
+              ) as CNT2 
+         where CNT.D >= CNT2.D
+         ) as user_count
+ 
+    from (select U.LEFT_DATE D,
+          0 as J,
+          1 as L 
+          from users U 
+          where U.LEFT_DATE is not null 
+          union all 
+          select 
+          	U.JOINED_DATE D,
+          	1 as J,
+          	0 as L 
+          from users U ) as CNT 
+group by CNT.D
+order by target_date
