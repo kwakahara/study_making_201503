@@ -1,7 +1,7 @@
 select 
-	date_format(CNT.D, '%Y-%m-%d') as target_date,
-	sum(CNT.J) as joined_count,
-	sum(CNT.L) as left_count,
+	date_format(CNT.D, '%Y-%m-%d') as DATE,
+	sum(CNT.J) as JOINED_COUNT,
+	sum(CNT.L) as LEFT_COUNT,
 	(select
 	sum(CNT2.J - CNT2.L)
 	from ( select U.LEFT_DATE D,
@@ -16,7 +16,7 @@ select
                		0 as L from users U 
               ) as CNT2 
          where CNT.D >= CNT2.D
-         ) as user_count
+         ) as USER_COUNT
  
     from (select U.LEFT_DATE D,
           0 as J,
