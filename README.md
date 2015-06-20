@@ -43,6 +43,7 @@ INSERT INTO USERS VALUES (3, '2015-03-03', NULL);
 INSERT INTO USERS VALUES (4, '2015-03-03', '2015-03-10');  
 INSERT INTO USERS VALUES (5, '2015-03-10', NULL);  
 ---  
+ 
 
 ## (1-2)その日時点での会員数も取得してください。 ##
 
