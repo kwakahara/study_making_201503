@@ -6,40 +6,40 @@ select
 		sum(CNT2.J - CNT2.L) 
 	from
 		(select
-			U.LEFT_DATE D,
+			LEFT_DATE D,
 			0 as J,
 			1 as L
 		from
-			users U
+			users
 		where
-			U.LEFT_DATE is not null 
+			LEFT_DATE is not null 
 		union all
 	  	select
-			U.JOINED_DATE D,
+			JOINED_DATE D,
 			1 as J,
 			0 as L
 		from
-			users U 
+			users
 		) as CNT2
 	where
 		CNT.D >= CNT2.D
 	) as user_count 
 from
 	(select
-		U.LEFT_DATE D,
+		LEFT_DATE D,
 		0 as J,
 		1 as L 
 	from
-		users U 
+		users 
 	where
-		U.LEFT_DATE is not null 
+		LEFT_DATE is not null 
 	union all 
 	select 
-		U.JOINED_DATE D,
+		JOINED_DATE D,
 		1 as J,
 		0 as L 
 	from
-		users U
+		users
 	) as CNT 
 group by CNT.D
 order by DATE
