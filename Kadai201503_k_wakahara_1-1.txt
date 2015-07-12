@@ -1,23 +1,23 @@
-select 
-	date_format(CNT.DATE, '%Y-%m-%d') as DATE,
-	sum(CNT.JOIN_CNT) as JOINED_COUNT,
-	sum(CNT.LEFT_CNT) as LEFT_COUNT
-from 
-	(select
-		USER.LEFT_DATE DATE,
-		0 as JOIN_CNT,
-		1 as LEFT_CNT
-	from
-		users USER
-	where
-		USER.LEFT_DATE is not null 
-	union all 
-	select 
-		USER.JOINED_DATE DATE,
-		1 as JOIN_CNT,
-		0 as LEFT_CNT 
-	from
-		users USER
-	) as CNT 
-group by CNT.DATE
-order by DATE
+SELECT 
+	date_format(cnt.date, '%Y-%m-%d') as DATE,
+	sum(cnt.join_cnt) as JOINED_COUNT,
+	sum(cnt.left_cnt) as LEFT_COUNT
+FROM 
+	(SELECT
+		user.LEFT_DATE date,
+		0 as join_cnt,
+		1 as left_cnt
+	FROM
+		users user
+	WHERE
+		user.LEFT_DATE is not null 
+	UNION ALL 
+	SELECT 
+		user.JOINED_DATE date,
+		1 as join_cnt,
+		0 as left_cnt 
+	FROM
+		users user
+	) AS cnt 
+GROUP BY cnt.date
+ORDER BY date
