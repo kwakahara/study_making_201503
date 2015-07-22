@@ -4,20 +4,20 @@ SELECT
 	sum(cnt.left_cnt) as LEFT_COUNT
 FROM 
 	(SELECT
-		user.LEFT_DATE date,
+		LEFT_DATE as date,
 		0 as join_cnt,
 		1 as left_cnt
 	FROM
-		users user
+		users
 	WHERE
-		user.LEFT_DATE is not null 
+		LEFT_DATE is not null 
 	UNION ALL 
 	SELECT 
-		user.JOINED_DATE date,
+		JOINED_DATE as date,
 		1 as join_cnt,
 		0 as left_cnt 
 	FROM
-		users user
-	) AS cnt 
+		users
+	) cnt 
 GROUP BY cnt.date
 ORDER BY date
